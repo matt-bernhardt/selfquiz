@@ -30,14 +30,41 @@ window.app.selfquiz = {
 		this.feedback = $('.feedback')
 		this.hideFeedback();
 
-		this.debug('2. Building questions');
-		this.questions = $('li');
-		this.debug('  ' + this.questions.length + ' questions found');
-
+		this.buildQuizQuestions();
 
 		this.buildQuizSubmit();
 
 		this.debug('Quiz building complete.');
+	},
+
+	buildQuizAnswer : function(i, element) {
+		window.app.selfquiz.debug('Building answer ' + i);
+
+		// What type of question are we building?
+		type = $(element.closest('.answers')).attr('data-questiontype') || 'radio';
+
+		// What question is this part of?
+		question = $(element.closest('.question')).attr('data-question') || 'questionNULL';
+
+		// Wrap a label around this list element.
+		label = $(element.closest('li')).wrap('<label></label>');
+
+		// Build the form input.
+		control = document.createElement('input');
+		$(control).attr('type', type);
+		$(control).attr('name', question);
+		element.prepend(control);
+	},
+
+	buildQuizQuestions : function() {
+		this.debug('2. Building questions');
+		this.questions = $('.question');
+		this.debug('  ' + this.questions.length + ' questions found');
+		this.questions.map(this.decorateQuestion);
+
+		this.answers = $('li');
+		this.debug('  ' + this.answers.length + ' answers found');
+		this.answers.map(this.buildQuizAnswer);
 	},
 
 	buildQuizSubmit : function() {
@@ -47,6 +74,11 @@ window.app.selfquiz = {
 		$(submit).append('<button type="button">Grade quiz</button>')
 		submit.addEventListener('click', this.gradeQuiz);
 		this.quiz.append(submit);
+	},
+
+	decorateQuestion : function(i, element) {
+		window.app.selfquiz.debug('Decorating question ' + i);
+		$(element).attr('data-question', 'question'+i);
 	},
 
 	gradeQuiz : function() {
