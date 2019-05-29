@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Self Quiz Testbed</title>
+	<link rel="stylesheet" type="text/css" href="selfquiz.css">
+	<script src="jquery-3.4.1.min.js"></script>
+	<script type="text/javascript" src="selfquiz.js"></script>
+</head>
+<body>
+	<h1>Self quiz testbed</h1>
+	<div class="quiz">
+		<div class="question">
+			<div class="prompt">Who was the first world leader to send an email?</div>
+			<div class="feedback">Remember, according to biased reporting, Al Gore invented the Internet! We were unable to confirm that Margaret Thatcher ever used email.</div>
+			<ul class="answers" data-questiontype="radio">
+				<li>Al Gore</li>
+				<li>Queen Elizabeth II</li>
+				<li>Margaret Thatcher</li>
+			</ul>
+		</div>
+		<div class="question">
+			<div class="prompt">When did libraries first adopt MAchine Readable Cataloging (MARC) for creating library records?</div>
+			<div class="feedback">1968 was quite early in the development of computer encoding, and is the same year that the current version of ASCII was formalized.</div>
+			<ul class="answers" data-questiontype="radio">
+				<li>1964</li>
+				<li>1968</li>
+				<li>1972</li>
+			</ul>
+		</div>
+		<div class="question">
+			<div class="prompt">In 1993, CERN released the World Wide Web into the public domain. What were some of the early Web browsers? (check all that apply)</div>
+			<div class="feedback">Veronica was a search engine for the earlier Gopher system, while Archie was software for searching FTP sites.</div>
+			<ul class="answers" data-questiontype="checkbox">
+				<li>Archie</li>
+				<li>Cello</li>
+				<li>Lynx</li>
+				<li>Mosaic</li>
+				<li>Veronica</li>
+			</ul>
+		</div>
+	</div>
+	<script type="text/javascript">
+		(function ($) {
+			'use strict';
+			console.log('Initial DOM load');
+			var selfquiz = app.selfquiz;
+			selfquiz.initialize(
+			);
+		})(jQuery);
+	</script>
+</body>
+</html>

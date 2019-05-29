@@ -1,0 +1,20 @@
+.quiz {
+	border: 1px solid #ff0000;
+	padding: 4px;
+}
+.question {
+	border: 1px solid #cc3333;
+	padding: 4px;
+}
+.prompt {
+	border: 1px solid #cc6633;
+	padding: 4px;
+}
+.feedback {
+	border: 1px solid #cc3366;
+	padding: 4px;
+}
+.answers {
+	border: 1px solid #996666;
+	padding: 4px;
+}
