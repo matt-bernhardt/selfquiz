@@ -8,7 +8,7 @@
 </head>
 <body>
 	<h1>Self quiz testbed</h1>
-	<div class="quiz">
+	<div class="selfquiz">
 		<div class="question">
 			<div class="prompt">Who was the first world leader to send an email?</div>
 			<div class="feedback">Remember, according to biased reporting, Al Gore invented the Internet! We were unable to confirm that Margaret Thatcher ever used email.</div>
@@ -44,8 +44,9 @@
 			'use strict';
 			console.log('Initial DOM load');
 			var selfquiz = app.selfquiz;
-			selfquiz.initialize(
-			);
+			selfquiz.initialize({
+				debug: true,
+			});
 		})(jQuery);
 	</script>
 </body>
