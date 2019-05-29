@@ -26,20 +26,42 @@ window.app.selfquiz = {
 
 	buildQuiz : function() {
 		this.debug('Quiz building start.');
-		this.debug('1. Building questions');
-		questions = $('li');
-		this.debug('  ' + questions.length + ' questions found');
+
+		this.feedback = $('.feedback')
+		this.hideFeedback();
+
+		this.debug('2. Building questions');
+		this.questions = $('li');
+		this.debug('  ' + this.questions.length + ' questions found');
+
+
+		this.buildQuizSubmit();
+
+		this.debug('Quiz building complete.');
+	},
+
+	buildQuizSubmit : function() {
 		this.debug('2. Building submit button...');
 		submit = document.createElement('div');
 		$(submit).attr("class","submit");
 		$(submit).append('<button type="button">Grade quiz</button>')
 		submit.addEventListener('click', this.gradeQuiz);
 		this.quiz.append(submit);
-		this.debug('Quiz building complete.');
 	},
 
 	gradeQuiz : function() {
 		window.app.selfquiz.debug('Grading requested...');
+		window.app.selfquiz.showFeedback();
+	},
+
+	hideFeedback : function() {
+		window.app.selfquiz.debug('1. Hiding feedback');
+		window.app.selfquiz.feedback.addClass('hidden');
+	},
+
+	showFeedback : function() {
+		window.app.selfquiz.debug('Showing feedback...');
+		window.app.selfquiz.feedback.removeClass('hidden');
 	},
 
 	debug : function(msg) {
