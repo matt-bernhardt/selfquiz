@@ -1,4 +1,4 @@
-.quiz {
+.selfquiz {
 	border: 1px solid #ff0000;
 	padding: 4px;
 }
@@ -17,6 +17,16 @@
 .answers {
 	border: 1px solid #996666;
 	padding: 4px;
+}
+.score {
+	background: #ffd407;
+	padding: 4px;
+}
+.correct {
+	background: #66ff66;
+}
+.wrong {
+	background: #ff6666;
 }
 .hidden {
 	display: none;
