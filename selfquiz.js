@@ -92,25 +92,9 @@ window.app.selfquiz = {
 			window.app.selfquiz.debug('Counting ' + type);
 
 			if ( 'radio' === type ) {
-				// TODO make this its own method
-				answer = $(window.app.selfquiz.questions[i]).find('input:checked').val();
-				correct = $(window.app.selfquiz.questions[i]).find('li[data-status="correct"]').text();
-				if ( answer === correct ) {
-					window.app.selfquiz.debug('Q' + i + ': correct');
-					points++;
-				} else {
-					window.app.selfquiz.debug('Q' + i + ': Got ' + answer + ', expected ' + correct);
-				}
+				window.app.selfquiz.gradeQuizRadio();
 			} else if ( 'checkbox' === type ) {
-				// TODO build array of values for both of these.
-				answer = typeof($(window.app.selfquiz.questions[i]).find('input:checked'));
-				correct = $(window.app.selfquiz.questions[i]).find('li[data-status="correct"]').text();
-				if ( answer === correct ) {
-					window.app.selfquiz.debug('Q' + i + ': correct');
-					points++;
-				} else {
-					window.app.selfquiz.debug('Q' + i + ': Got ' + answer + ', expected ' + correct);
-				}
+				window.app.selfquiz.gradeQuizCheckbox();
 			}
 			// TODO count differently if radio or checkboxes
 			// checkbox - get values, compare to data attributes. total matches, divide by total expected.
@@ -119,6 +103,42 @@ window.app.selfquiz = {
 		window.app.selfquiz.showScore();
 		window.app.selfquiz.showFeedback();
 		window.app.selfquiz.markAnswers();
+	},
+
+	gradeQuizCheckbox : function() {
+		// TODO build array of values for both of these.
+		answer = $(window.app.selfquiz.questions[i]).find('input:checked');
+		answerLength = answer.length;
+		answerText = "";
+		for (j = 0; j < answer.length; j++) {
+			answerText += $(answer[j]).val();
+		}
+
+		// This ends with a concatenated list of correct answers. So both "Foo" and "Bar" will result in "FooBar"
+		correct = $(window.app.selfquiz.questions[i]).find('li[data-status="correct"]').find('input');
+		correctLength = correct.length;
+		correctText = "";
+		for (j = 0; j < correct.length; j++) {
+			correctText += $(correct[j]).val();
+		}
+
+		if ( answerLength === correctLength && answerText === correctText ) {
+			window.app.selfquiz.debug('Q' + i + ': correct');
+			points++;
+		} else {
+			window.app.selfquiz.debug('Q' + i + ': Got ' + answerText + ', expected ' + correctText);
+		}
+	},
+
+	gradeQuizRadio : function() {
+		answer = $(window.app.selfquiz.questions[i]).find('input:checked').val();
+		correct = $(window.app.selfquiz.questions[i]).find('li[data-status="correct"]').text();
+		if ( answer === correct ) {
+			window.app.selfquiz.debug('Q' + i + ': correct');
+			points++;
+		} else {
+			window.app.selfquiz.debug('Q' + i + ': Got ' + answer + ', expected ' + correct);
+		}
 	},
 
 	hideFeedback : function() {
