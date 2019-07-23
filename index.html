@@ -3,15 +3,29 @@
 <head>
 	<title>Self Quiz Testbed</title>
 	<link rel="stylesheet" type="text/css" href="reset.css">
+	<link rel="stylesheet" type="text/css" href="styles.css">
 	<link rel="stylesheet" type="text/css" href="selfquiz.css">
 	<script src="jquery-3.4.1.min.js"></script>
 	<script type="text/javascript" src="selfquiz.js"></script>
 </head>
 <body>
-	<h1>Self quiz testbed</h1>
+	<h1>Self quiz library</h1>
+	<p>This javascript library will build a "test your knowledge" style quiz based on a specific pattern of HTML markup.</p>
+	<p>The following questions show the various types of questions that are possible.</p>
 	<div class="selfquiz">
+		<h2>Single correct answer</h2>
+		<p>This type of multiple-choice question presumes that the learner will need to choose one correct option from among multiple choices. This type of question should be marked up as follows. Note the class and data attributes being used to declare question type and correct answers...</p>
+<code><pre>&lt;div class="question">
+	&lt;div class="prompt">Why did the chicken cross the road?&lt;/div>
+	&lt;ul class="answers" data-questiontype="radio">
+		&lt;li>Fleeing the effects of climate change&lt;/li>
+		&lt;li data-status="correct">To get to the other side&lt;/li>
+		&lt;li>There was a sale at Macy's&lt;/li>
+	&lt;/ul>
+	&lt;div class="feedback">The feedback block can be used to provide additional information after the quiz has been evaluated.&lt;/div>
+&lt;/div></pre></code>
 		<div class="question">
-			<div class="prompt">Who was the first world leader to send an email?</div>
+			<div class="prompt">1. Who was the first world leader to send an email?</div>
 			<ul class="answers" data-questiontype="radio">
 				<li>Al Gore</li>
 				<li data-status="correct">Queen Elizabeth II</li>
@@ -20,16 +34,7 @@
 			<div class="feedback">Remember, according to biased reporting, Al Gore invented the Internet! We were unable to confirm that Margaret Thatcher ever used email.</div>
 		</div>
 		<div class="question">
-			<div class="prompt">When did libraries first adopt MAchine Readable Cataloging (MARC) for creating library records?</div>
-			<ul class="answers" data-questiontype="radio">
-				<li>1964</li>
-				<li data-status="correct">1968</li>
-				<li>1972</li>
-			</ul>
-			<div class="feedback">1968 was quite early in the development of computer encoding, and is the same year that the current version of ASCII was formalized.</div>
-		</div>
-		<div class="question">
-			<div class="prompt">Which image format was introduced first?</div>
+			<div class="prompt">2. Which image format was introduced first?</div>
 			<ul class="answers" data-questiontype="radio">
 				<li data-status="correct">TIFF</li>
 				<li>JPEG / JFIF</li>
@@ -37,17 +42,32 @@
 			</ul>
 			<div class="feedback">TIFF was the first image format, and still remains the archival standard.</div>
 		</div>
+		<h2>Multiple correct answers (any answer acceptable)</h2>
+		<p>This type of question presumes that the question has multiple answers which might be correct - and that the learner must only identify one of them to be awarded points.</p>
+<code><pre>&lt;div class="question">
+	&lt;div class="prompt">3. Are you digitizing materials, or do you plan to do so in the next two years?&lt;/div>
+	&lt;ul class="answers" data-questiontype="multi-radio">
+		&lt;li data-status="correct">Yes&lt;/li>
+		&lt;li>No&lt;/li>
+		&lt;li data-status="correct">Don't know&lt;/li>
+		&lt;li>Not applicable&lt;/li>
+	&lt;/ul>
+	&lt;div class="feedback hidden">This is an example of a single-answer question ("radio" type) that has multiple possible correct answers. Choosing any of them results in full points being given.&lt;/div>
+&lt;/div></pre></code>
 		<div class="question">
-			<div class="prompt">The Enigma machine was manufactured in 1923, capable of transcribing coded information. Who starred in this 2001 movie of the same name?</div>
-			<ul class="answers" data-questiontype="radio">
-				<li>Madonna</li>
-				<li>Drew Barrymore</li>
-				<li data-status="correct">Kate Winslet</li>
+			<div class="prompt">3. Are you digitizing materials, or do you plan to do so in the next two years?</div>
+			<ul class="answers" data-questiontype="multi-radio">
+				<li data-status="correct">Yes</li>
+				<li>No</li>
+				<li data-status="correct">Don't know</li>
+				<li>Not applicable</li>
 			</ul>
-			<div class="feedback">From Netflix: <em>"During the dark early days of World War II, the Nazis change the Enigma Code that commandeers their U-boat fleet -- and it's up to Tom Jericho (Dougray Scott), a brilliant code-breaker, to crack the new encryption...Kate Winslet co-stars, along with Saffron Burrows as Jericho's mysteriously missing fiancée..."</em></div>
+			<div class="feedback hidden">This is an example of a single-answer question ("radio" type) that has multiple possible correct answers. Choosing any of them results in full points being given.</div>
 		</div>
+		<h2>Multiple correct answers (all required)</h2>
+		<p>This type of question presumes that there are multiple correct answers - <em>all of which</em> must be selected in order to receive points.</p>
 		<div class="question">
-			<div class="prompt">In 1993, CERN released the World Wide Web into the public domain. What were some of the early Web browsers? (check all that apply)</div>
+			<div class="prompt">4. In 1993, CERN released the World Wide Web into the public domain. What were some of the early Web browsers? (check all that apply)</div>
 			<ul class="answers" data-questiontype="checkbox">
 				<li>Archie</li>
 				<li data-status="correct">Cello</li>
@@ -58,51 +78,13 @@
 			<div class="feedback">Veronica was a search engine for the earlier Gopher system, while Archie was software for searching FTP sites.</div>
 		</div>
 		<div class="question">
-			<div class="prompt">Which was the first commercial video game?</div>
-			<ul class="answers" data-questiontype="radio">
-				<li data-status="correct">Pong</li>
-				<li>PacMan</li>
-				<li>Super Mario Brothers</li>
-			</ul>
-			<div class="feedback">You can play an emulated game of pong online here: <a href="http://www.stevelange.net/flash/pong02.swf">http://www.stevelange.net/flash/pong02.swf</a></div>
-		</div>
-		<div class="question">
-			<div class="prompt">What is Java?</div>
-			<ul class="answers" data-questiontype="radio">
-				<li>An object oriented programming language</li>
-				<li>A cup of coffee</li>
-				<li data-status="correct">Both</li>
-			</ul>
-			<div class="feedback">"The origin of the name "Java" is kind of a funny story. While the people at Sun Microsystems were developing their new language, "Oak", they found out that some other programmers happened to be creating a programming language that was also called Oak. So they decided to change the name, but first they wanted to take a break. Someone drank some coffee, came back into the room, and suggested the name Java. The name has stuck ever since."
-From: <a href="http://www.duke.edu/~trc7/cps/background/what_is_java.html">http://www.duke.edu/~trc7/cps/background/what_is_java.html</a></div>
-		</div>
-		<div class="question">
-			<div class="prompt">Check the following definitions that correspond to the term METS.</div>
+			<div class="prompt">5. Check the following definitions that correspond to the term METS.</div>
 			<ul class="answers" data-questiontype="checkbox">
 				<li data-status="correct">An XML standard for encoding metadata within a digital library</li>
 				<li data-status="correct">A baseball team in NYC</li>
 				<li>A transfer protocol adopted by the W3C</li>
 			</ul>
 			<div class="feedback">The difference between the baseball team and the XML schema, is that the former is in the cellar and the latter is in the ascendancy.</div>
-		</div>
-		<div class="question">
-			<div class="prompt">What was the first computer bug?</div>
-			<ul class="answers" data-questiontype="radio">
-				<li data-status="correct">A moth</li>
-				<li>A virus</li>
-				<li>A worm</li>
-			</ul>
-			<div class="feedback">Computer scientist Grace Hopper found the first computer “bug” in 1945. A moth had been caught in the circuitry of the Mark II computer system at Harvard. The term “bug” had been used before this to describe system errors, but until this point no actual insects had been implicated.</div>
-		</div>
-		<div class="question">
-			<div class="prompt">What was the first commercially successful word processing software?</div>
-			<ul class="answers" data-questiontype="radio">
-				<li>EasyWriter</li>
-				<li data-status="correct">WordStar</li>
-				<li>MS Word</li>
-				<li>WordPerfect</li>
-			</ul>
-			<div class="feedback">In 1979, WordStar software became the first commercially successful word processor. The very first computer word processors were line editors, software-writing aids that allowed a programmer to make changes in a line of program code. In the early days of personal computing, dozens of word processors competed for dominance.</div>
 		</div>
 	</div>
 	<script type="text/javascript">
