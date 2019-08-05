@@ -10,8 +10,13 @@
 </head>
 <body>
 	<h1>Self quiz library</h1>
-	<p>This javascript library will build a "test your knowledge" style quiz based on a specific pattern of HTML markup.</p>
-	<p>The following questions show the various types of questions that are possible.</p>
+	<p>This javascript library will build a "test your knowledge" style quiz based on a specific pattern of HTML markup. Three types of questions are currently supported:</p>
+	<ol>
+		<li>Single correct answer</li>
+		<li>Multiple correct answers (any correct answer awarded points)</li>
+		<li>Multiple correct answers (all correct answers required for points)</li>
+	</ol>
+	<p>Each of the three types is described in more detail below.</p>
 	<div class="selfquiz">
 		<h2>Single correct answer</h2>
 		<p>This type of multiple-choice question presumes that the learner will need to choose one correct option from among multiple choices. This type of question should be marked up as follows. Note the class and data attributes being used to declare question type and correct answers...</p>
@@ -42,7 +47,7 @@
 			</ul>
 			<div class="feedback">TIFF was the first image format, and still remains the archival standard.</div>
 		</div>
-		<h2>Multiple correct answers (any answer acceptable)</h2>
+		<h2>Multiple correct answers (any correct answer awarded points)</h2>
 		<p>This type of question presumes that the question has multiple answers which might be correct - and that the learner must only identify one of them to be awarded points.</p>
 <code><pre>&lt;div class="question">
 	&lt;div class="prompt">3. Are you digitizing materials, or do you plan to do so in the next two years?&lt;/div>
@@ -66,6 +71,17 @@
 		</div>
 		<h2>Multiple correct answers (all required)</h2>
 		<p>This type of question presumes that there are multiple correct answers - <em>all of which</em> must be selected in order to receive points.</p>
+<code><pre>&lt;div class="question">
+	&lt;div class="prompt">4. In 1993, CERN released the World Wide Web into the public domain. What were some of the early Web browsers? (check all that apply)&lt;/div>
+	&lt;ul class="answers" data-questiontype="checkbox">
+		&lt;li>Archie&lt;/li>
+		&lt;li data-status="correct">Cello&lt;/li>
+		&lt;li data-status="correct">Lynx&lt;/li>
+		&lt;li data-status="correct">Mosaic&lt;/li>
+		&lt;li>Veronica&lt;/li>
+	&lt;/ul>
+	&lt;div class="feedback">Veronica was a search engine for the earlier Gopher system, while Archie was software for searching FTP sites.&lt;/div>
+&lt;/div></pre></code>
 		<div class="question">
 			<div class="prompt">4. In 1993, CERN released the World Wide Web into the public domain. What were some of the early Web browsers? (check all that apply)</div>
 			<ul class="answers" data-questiontype="checkbox">
