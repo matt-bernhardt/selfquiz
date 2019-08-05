@@ -14,7 +14,7 @@ window.app.selfquiz = {
 		config = config || {};
 		this.debugFlag = config.debug || false;
 
-		this.quiz = config.quizElement || $(".selfquiz");
+		this.quiz = jQuery(config.quizElement) || jQuery(".selfquiz");
 		if (0 === this.quiz.length) {
 			console.log('Quiz element not found');
 			return;
@@ -27,7 +27,7 @@ window.app.selfquiz = {
 	buildQuiz : function() {
 		this.debug('Quiz building start.');
 
-		this.feedback = $('.feedback')
+		this.feedback = jQuery('.feedback')
 		this.hideFeedback();
 
 		this.buildQuizQuestions();
@@ -41,30 +41,30 @@ window.app.selfquiz = {
 		window.app.selfquiz.debug('Building answer ' + i);
 
 		// What type of question are we building?
-		type = $(element.closest('.answers')).attr('data-questiontype') || 'radio';
+		type = jQuery(element.closest('.answers')).attr('data-questiontype') || 'radio';
 		if(type !== 'checkbox') { type = 'radio'; }
 
 		// What question is this part of?
-		question = $(element.closest('.question')).attr('data-question') || 'questionNULL';
+		question = jQuery(element.closest('.question')).attr('data-question') || 'questionNULL';
 
 		// Wrap a label around this list element.
-		label = $(element.closest('li')).wrap('<label></label>');
+		label = jQuery(element.closest('li')).wrap('<label></label>');
 
 		// Build the form input.
 		control = document.createElement('input');
-		$(control).attr('type', type);
-		$(control).attr('name', question);
-		$(control).attr('value', element.innerHTML);
+		jQuery(control).attr('type', type);
+		jQuery(control).attr('name', question);
+		jQuery(control).attr('value', element.innerHTML);
 		element.prepend(control);
 	},
 
 	buildQuizQuestions : function() {
 		this.debug('2. Building questions');
-		this.questions = $('.question');
+		this.questions = jQuery('.question');
 		this.debug('  ' + this.questions.length + ' questions found');
 		this.questions.map(this.decorateQuestion);
 
-		this.answers = $('li');
+		this.answers = jQuery('.question li');
 		this.debug('  ' + this.answers.length + ' answers found');
 		this.answers.map(this.buildQuizAnswer);
 	},
@@ -72,15 +72,15 @@ window.app.selfquiz = {
 	buildQuizSubmit : function() {
 		this.debug('2. Building submit button...');
 		submit = document.createElement('div');
-		$(submit).attr("class","submit");
-		$(submit).append('<button type="button">Grade quiz</button>')
+		jQuery(submit).attr("class","submit");
+		jQuery(submit).append('<button type="button">Grade quiz</button>')
 		submit.addEventListener('click', this.gradeQuiz);
 		this.quiz.append(submit);
 	},
 
 	decorateQuestion : function(i, element) {
 		window.app.selfquiz.debug('Decorating question ' + i);
-		$(element).attr('data-question', 'question'+i);
+		jQuery(element).attr('data-question', 'question'+i);
 	},
 
 	gradeQuiz : function() {
@@ -89,7 +89,7 @@ window.app.selfquiz = {
 		points = 0;
 		// TODO make this not a loop.
 		for (i = 0; i < questions.length; i++) {
-			type = $(questions[i]).find('.answers').attr('data-questiontype');
+			type = jQuery(questions[i]).find('.answers').attr('data-questiontype');
 			window.app.selfquiz.debug('Counting ' + type);
 
 			if ( 'radio' === type ) {
@@ -110,19 +110,19 @@ window.app.selfquiz = {
 
 	gradeQuizCheckbox : function() {
 		// TODO build array of values for both of these.
-		answer = $(window.app.selfquiz.questions[i]).find('input:checked');
+		answer = jQuery(window.app.selfquiz.questions[i]).find('input:checked');
 		answerLength = answer.length;
 		answerText = "";
 		for (j = 0; j < answer.length; j++) {
-			answerText += $(answer[j]).val();
+			answerText += jQuery(answer[j]).val();
 		}
 
 		// This ends with a concatenated list of correct answers. So both "Foo" and "Bar" will result in "FooBar"
-		correct = $(window.app.selfquiz.questions[i]).find('li[data-status="correct"]').find('input');
+		correct = jQuery(window.app.selfquiz.questions[i]).find('li[data-status="correct"]').find('input');
 		correctLength = correct.length;
 		correctText = "";
 		for (j = 0; j < correct.length; j++) {
-			correctText += $(correct[j]).val();
+			correctText += jQuery(correct[j]).val();
 		}
 
 		if ( answerLength === correctLength && answerText === correctText ) {
@@ -134,8 +134,8 @@ window.app.selfquiz = {
 	},
 
 	gradeQuizMultiRadio : function() {
-		answer = $(window.app.selfquiz.questions[i]).find('input:checked').val();
-		correct = $(window.app.selfquiz.questions[i]).find('li[data-status="correct"]').text();
+		answer = jQuery(window.app.selfquiz.questions[i]).find('input:checked').val();
+		correct = jQuery(window.app.selfquiz.questions[i]).find('li[data-status="correct"]').text();
 		if ( correct.includes(answer) ) {
 			window.app.selfquiz.debug('Q' + i + ': correct');
 			points++;
@@ -145,8 +145,8 @@ window.app.selfquiz = {
 	},
 
 	gradeQuizRadio : function() {
-		answer = $(window.app.selfquiz.questions[i]).find('input:checked').val();
-		correct = $(window.app.selfquiz.questions[i]).find('li[data-status="correct"]').text();
+		answer = jQuery(window.app.selfquiz.questions[i]).find('input:checked').val();
+		correct = jQuery(window.app.selfquiz.questions[i]).find('li[data-status="correct"]').text();
 		if ( answer === correct ) {
 			window.app.selfquiz.debug('Q' + i + ': correct');
 			points++;
@@ -161,16 +161,16 @@ window.app.selfquiz = {
 	},
 
 	markAnswers : function() {
-		correct = $(window.app.selfquiz.questions).find('li[data-status="correct"]');
-		answers = $(window.app.selfquiz.questions).find('input:checked').closest('li');
+		correct = jQuery(window.app.selfquiz.questions).find('li[data-status="correct"]');
+		answers = jQuery(window.app.selfquiz.questions).find('input:checked').closest('li');
 		for (i = 0; i < answers.length; i++) {
-			status = $(answers[i]).attr('data-status');
+			status = jQuery(answers[i]).attr('data-status');
 			if ( 'correct' != status ) {
-				$(answers[i]).addClass('wrong');
-				$(answers[i]).append(' - Incorrect');
+				jQuery(answers[i]).addClass('wrong');
+				jQuery(answers[i]).append(' - Incorrect');
 			}
 		}
-		incorrect = $(answers).attr
+		incorrect = jQuery(answers).attr
 		correct.addClass('correct');
 		correct.append(' - Correct');
 	},
@@ -184,7 +184,7 @@ window.app.selfquiz = {
 		points = window.app.selfquiz.points || 0;
 		window.app.selfquiz.debug('Showing score...');
 		score = document.createElement('div');
-		$(score).attr('class','score');
+		jQuery(score).attr('class','score');
 		score.append('Your score: ' + points + ' of ' + window.app.selfquiz.questions.length);
 		window.app.selfquiz.quiz[0].prepend(score);
 	},
