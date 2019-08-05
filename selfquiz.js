@@ -64,7 +64,7 @@ window.app.selfquiz = {
 		this.debug('  ' + this.questions.length + ' questions found');
 		this.questions.map(this.decorateQuestion);
 
-		this.answers = jQuery('li');
+		this.answers = jQuery('.question li');
 		this.debug('  ' + this.answers.length + ' answers found');
 		this.answers.map(this.buildQuizAnswer);
 	},
