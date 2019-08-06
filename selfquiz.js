@@ -10,6 +10,8 @@ window.app = window.app || {};
  */
 window.app.selfquiz = {
 
+	version: '1.0.0',
+
 	initialize : function(config) {
 		config = config || {};
 		this.debugFlag = config.debug || false;
