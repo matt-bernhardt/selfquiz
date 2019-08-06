@@ -14,7 +14,7 @@ window.app.selfquiz = {
 		config = config || {};
 		this.debugFlag = config.debug || false;
 
-		this.quiz = jQuery(config.quizElement) || jQuery(".selfquiz");
+		this.quiz = config.quizElement || jQuery(".selfquiz");
 		if (0 === this.quiz.length) {
 			console.log('Quiz element not found');
 			return;
